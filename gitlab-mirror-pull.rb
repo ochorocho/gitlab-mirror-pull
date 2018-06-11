@@ -4,7 +4,7 @@ require 'yaml'
 
 # Configure Logger
 log = Logger.new(STDOUT)
-log.level = Logger::INFO
+log.level = Logger::WARN
 
 # Load config.yml file for configuration
 yml = YAML.load_file('config.yml')
@@ -15,7 +15,20 @@ Git.configure do |config|
 end
 
 # Find all .git Repositories - Ignore *.wiki.git
-Dir.glob("#{yml['git']['repos']}/*/*{[!.wiki]}.git").each do |repo| 
+repos = Dir.glob("#{yml['git']['repos']}/*/*{[!.wiki]}.git")
+# ignore = yml['ignore'].map { |str| yml['git']['repos'] + "/" + str + ".git" }
+
+# Build up array of NOT ignored repositories
+delete_path = []
+yml['ignore'].each do |ignored|
+	path = File.join(yml['git']['repos'], ignored)
+	delete_path += repos.grep /^#{path}/
+	repos.delete(delete_path)
+end
+repos_to_fetch = repos - delete_path 
+
+# Loop through repos and fetch it
+repos_to_fetch.each do |repo| 	
 	if File.directory?(repo)
 		# Get branches
 		g = Git.bare("#{repo}", :log => log)
