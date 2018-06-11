@@ -1,13 +1,45 @@
 require 'git'
 require 'logger'
 require 'yaml'
+require 'optparse'
 
 # Configure Logger
 log = Logger.new(STDOUT)
-log.level = Logger::WARN
+log.level = Logger::ERROR
 
-# Load config.yml file for configuration
-yml = YAML.load_file('config.yml')
+# Parse commandline arguments
+options = {
+	:config => File.join(File.dirname(__FILE__), "../config.yml"),
+	:log_level => Logger::ERROR
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: gitlab-mirror-pull.rb [options]"
+
+  # Config argument
+  opts.on("-c", "--config [config.yml]", "Specify config yaml") do |yml|
+    options[:config] = yml
+  end
+
+  # LogLevel argument
+  opts.on("-l", "--log-level INFO|WARN|ERROR|DEBUG", "Define log level") do |level|
+  	case level
+	when "INFO"
+	  log.level = Logger::INFO
+	when "WARN"
+	  log.level = Logger::WARN
+	when "ERROR"
+	  log.level = Logger::ERROR
+	else
+	  log.level = Logger::DEBUG
+	end
+  end
+
+end.parse!
+
+
+
+# Load config.yml
+yml = YAML.load_file(options[:config])
 
 # Init git settings
 Git.configure do |config|
@@ -16,7 +48,6 @@ end
 
 # Find all .git Repositories - Ignore *.wiki.git
 repos = Dir.glob("#{yml['git']['repos']}/*/*{[!.wiki]}.git")
-# ignore = yml['ignore'].map { |str| yml['git']['repos'] + "/" + str + ".git" }
 
 # Build up array of NOT ignored repositories
 delete_path = []
