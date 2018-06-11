@@ -1,11 +1,10 @@
 git:
   path: "/usr/bin/git"
-  repos: "/var/opt/gitlab/git-data/repositories"
+  repos: "/var/opt/gitlab/git-data/repositories" # Default path of gitlab omnibus installation
 ignore:
-  - "knallimall/library"
-  - "typo3/library"
-  - "ochorocho/exampleapp"
-provider:
+  - "group-name/project-name" # Ignore single repo
+  - "group-name" # Ignore entire group
+provider: # provider equals to "remote" set in your repository
   - "github"
   - "gitlab"
  
