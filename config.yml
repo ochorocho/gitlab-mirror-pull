@@ -1,0 +1,11 @@
+git:
+  path: "/usr/bin/git"
+  repos: "/var/opt/gitlab/git-data/repositories"
+ignore:
+  - "knallimall/library"
+  - "typo3/library"
+  - "ochorocho/exampleapp"
+provider:
+  - "github"
+  - "gitlab"
+ 
