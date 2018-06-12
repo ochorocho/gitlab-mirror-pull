@@ -23,5 +23,5 @@ deploy:
   type: deploy
   environment: production
   script:
-  - echo $GEM_EMAIL
+  - echo $GEM_API > ~/.gem/credentials && chmod 0600 ~/.gem/credentials
   - gem build gitlab-mirror-pull.gemspec
