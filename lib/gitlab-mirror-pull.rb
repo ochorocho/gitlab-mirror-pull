@@ -14,14 +14,17 @@ options = {
 }
 OptionParser.new do |opts|
   opts.banner = "Usage: gitlab-mirror-pull.rb [options]"
-
+  opts.set_summary_indent('   ')
+  opts.set_summary_width(50)
+  opts.define_head "Fetch gitlab repositories when remote set."
+  
   # Config argument
   opts.on("-c", "--config [config.yml]", "Specify config yaml") do |yml|
     options[:config] = yml
   end
 
   # LogLevel argument
-  opts.on("-l", "--log-level INFO|WARN|ERROR|DEBUG", "Define log level") do |level|
+  opts.on("-l", "--log-level [INFO|WARN|ERROR|DEBUG]", "Define log level") do |level|
   	case level
 	when "INFO"
 	  log.level = Logger::INFO
@@ -34,9 +37,12 @@ OptionParser.new do |opts|
 	end
   end
 
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
 end.parse!
-
-
 
 # Load config.yml
 yml = YAML.load_file(options[:config])
