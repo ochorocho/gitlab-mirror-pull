@@ -24,6 +24,5 @@ deploy:
   environment: production
   script:
   - echo $GEM_API_PART1 > ~/.gem/credentials && echo $GEM_API_PART2 >> ~/.gem/credentials && chmod 0600 ~/.gem/credentials
-  - echo `grep -oP  -m 1 "s.version(.*)=(.*)'(.*)'" ./gitlab-mirror-pull.gemspec | awk -F "'" '{print $2}'`
   - gem build gitlab-mirror-pull.gemspec
-  #- gem push gem build gitlab-mirror-pull-$(`grep -oP  -m 1 "s.version(.*)=(.*)'(.*)'" ./gitlab-mirror-pull.gemspec | awk -F "'" '{print $2}')`.gem
+  - gem push gem build gitlab-mirror-pull-`grep -oP  -m 1 "s.version(.*)=(.*)'(.*)'" ./gitlab-mirror-pull.gemspec | awk -F "'" '{print $2}'`.gem
