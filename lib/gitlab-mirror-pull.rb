@@ -9,14 +9,15 @@ log.level = Logger::ERROR
 
 # Parse commandline arguments
 options = {
-	:config => File.join(File.dirname(__FILE__), "../config.yml"),
+	:config => File.join(File.dirname(__FILE__), "../config.example.yml"),
 	:log_level => Logger::ERROR
 }
 OptionParser.new do |opts|
   opts.banner = "Usage: gitlab-mirror-pull.rb [options]"
   opts.set_summary_indent('   ')
   opts.set_summary_width(50)
-  opts.define_head "Fetch gitlab repositories when remote set."
+  opts.define_head "Fetch gitlab repositories when remote set.
+Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n"
   
   # Config argument
   opts.on("-c", "--config [config.yml]", "Specify config yaml") do |yml|
