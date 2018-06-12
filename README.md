@@ -28,3 +28,18 @@ If you want to trigger periodically
 ```bash
 0 */1 * * *	/usr/bin/ruby /path/to/gitlab-mirror-pull.rb
 ```
+
+Using 'gem install'
+-------------------
+
+Install
+
+```bash
+gem install gitlab-mirror-pull
+```
+
+Run
+
+```bash
+gitlab-mirror-pull -c /path/to/config.yml
+```
