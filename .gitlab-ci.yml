@@ -23,7 +23,7 @@ deploy:
   type: deploy
   environment: production
   script:
-  - echo $GEM_API > ~/.gem/credentials && chmod 0600 ~/.gem/credentials
+  - echo $GEM_API_PART1 > ~/.gem/credentials && echo $GEM_API_PART2 > ~/.gem/credentials && chmod 0600 ~/.gem/credentials
   - cat ~/.gem/credentials
   #- gem build gitlab-mirror-pull.gemspec
   #- gem push gem build gitlab-mirror-pull-*
