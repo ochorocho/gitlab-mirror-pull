@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        			= 'gitlab-mirror-pull'
   s.required_ruby_version	= '>= 2.3.1'
-  s.version     			= '0.1.3'
+  s.version     			= '0.1.4'
   s.licenses    			= ['MIT']
   s.summary     			= "Fetch repos from remote if set"
   s.description 			= "Checks for repositories with a set remote and run git fetch on these ..."
