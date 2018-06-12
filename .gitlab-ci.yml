@@ -27,4 +27,4 @@ deploy:
   - gem build gitlab-mirror-pull.gemspec
   - export GEMVERSION=`grep -oP  -m 1 "s.version(.*)=(.*)'(.*)'" ./gitlab-mirror-pull.gemspec | awk -F "'" '{print $2}'`
   - echo $GEMVERSION
-  - gem push gitlab-mirror-pull-$GEMVERSION
+  - gem push gitlab-mirror-pull-$GEMVERSION.gem
