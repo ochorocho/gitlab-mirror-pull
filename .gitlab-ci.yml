@@ -23,4 +23,5 @@ deploy:
   type: deploy
   environment: production
   script:
+  - echo $GEM_EMAIL
   - gem build gitlab-mirror-pull.gemspec
