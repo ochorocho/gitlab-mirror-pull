@@ -7,17 +7,12 @@ class GitlabMirrorPull
 
   attr_accessor :config, :log_level
 
-  # Parse commandline arguments
+  # Initialize class
   #
-  # == Parameters:
-  # config::
-  #	Path to config file (e.g. ../config.example.yml)
+  # @param config Path to config file (e.g. ../config.example.yml)
+  # @param log_level Set log level. Possible values: `Logger::INFO`, `Logger::WARN`, `Logger::ERROR`, `Logger::DEBUG`
   #
-  # log_level::
-  #   Set log level. Possible values: `Logger::INFO`, `Logger::WARN`, `Logger::ERROR`, `Logger::DEBUG`
-  #
-  # == Returns:
-  # Returns `@log` and `@config`
+  # @return Returns `@log` and `@config`
   #
   def initialize(config = File.join(File.dirname(__FILE__), "../config.example.yml"), log_level = Logger::ERROR)
 
@@ -30,8 +25,7 @@ class GitlabMirrorPull
 
   # Prepare list of repositories
   #
-  # == Returns:
-  # List of repositories to update using `git fetch`. Excludes `*.wiki` and repositories defined in `config.yml -> git -> repos`
+  # @return List of repositories to update using `git fetch`. Excludes `*.wiki` and repositories defined in `config.yml -> git -> repos`
   #
   def repositories_to_fetch
     # Find all .git Repositories - Ignore *.wiki.git
@@ -51,8 +45,7 @@ class GitlabMirrorPull
 
   # Fetch repositories return by `repositories_to_fetch`
   #
-  # == Returns:
-  # Logging infos on fetched repos
+  # @return Logging infos on fetched repos
   #
   def fetch_repositories
     # Init git settings
