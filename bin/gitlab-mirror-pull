@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 require_relative '../lib/gitlab-mirror-pull.rb'
 
 options = {
@@ -27,6 +28,11 @@ Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n
     options[:config] = yml
   end
 
+  # Run Webserver
+  opts.on("-r", "--run [server]", "Run webserver for gitlab webhooks") do |server|
+    options[:run] = server
+  end
+
   # LogLevel argument
   opts.on("-l", "--log-level [INFO|WARN|ERROR|DEBUG]", "Define log level") do |level|
     case level
@@ -48,5 +54,25 @@ Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n
 
 end.parse!
 
-# Run `git fetch` depending on options[:config] 
-GitlabMirrorPull.new(options[:config], options[:log_level])
+if options[:run] == 'server'
+
+  require 'sinatra'
+  require 'multi_json'
+
+  config = YAML.load_file(options[:config])
+
+  # Configure server
+  set :port, config['server']['port']
+  set :bind, config['server']['bind']
+
+  post '/commit' do
+    gitlab_json = MultiJson.load(request.body.read)
+    # File.join(File.dirname(__FILE__), "../config.example.yml")
+    repo_path = File.join(config['git']['repos'], gitlab_json['project']['namespace'].downcase, gitlab_json['project']['name'].downcase)
+    puts repo_path
+  end
+
+else
+  # Run `git fetch` depending on options[:config]
+  GitlabMirrorPull.new(options[:config], options[:log_level])
+end
