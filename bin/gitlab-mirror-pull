@@ -2,8 +2,8 @@
 require_relative '../lib/gitlab-mirror-pull.rb'
 
 options = {
-	:config => File.join(File.dirname(__FILE__), "../config.example.yml"),
-	:log_level => Logger::ERROR
+  :config => File.join(File.dirname(__FILE__), "../config.example.yml"),
+  :log_level => Logger::ERROR
 }
 
 # Parse commandline arguments
@@ -21,7 +21,7 @@ OptionParser.new do |opts|
   opts.set_summary_width(50)
   opts.define_head "Fetch gitlab repositories when remote set.
 Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n"
-  
+
   # Config argument
   opts.on("-c", "--config [config.yml]", "Specify config yaml") do |yml|
     options[:config] = yml
@@ -29,16 +29,16 @@ Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n
 
   # LogLevel argument
   opts.on("-l", "--log-level [INFO|WARN|ERROR|DEBUG]", "Define log level") do |level|
-  	case level
-	when "INFO"
-	  options[:log_level] = Logger::INFO
-	when "WARN"
-	  options[:log_level] = Logger::WARN
-	when "ERROR"
-	  options[:log_level] = Logger::ERROR
-	when "DEBUG"
-	  options[:log_level] = Logger::DEBUG
-	end
+    case level
+    when "INFO"
+      options[:log_level] = Logger::INFO
+    when "WARN"
+      options[:log_level] = Logger::WARN
+    when "ERROR"
+      options[:log_level] = Logger::ERROR
+    when "DEBUG"
+      options[:log_level] = Logger::DEBUG
+    end
   end
 
   opts.on_tail("-h", "--help", "Show this message") do
@@ -49,4 +49,4 @@ Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n
 end.parse!
 
 # Run `git fetch` depending on options[:config] 
-GitlabMirrorPull.new(options[:config],options[:log_level])
+GitlabMirrorPull.new(options[:config], options[:log_level])
