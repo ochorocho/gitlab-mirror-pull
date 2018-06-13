@@ -1,11 +1,20 @@
 #!/usr/bin/env ruby
 require_relative '../lib/gitlab-mirror-pull.rb'
 
-# Parse commandline arguments
 options = {
 	:config => File.join(File.dirname(__FILE__), "../config.example.yml"),
 	:log_level => Logger::ERROR
 }
+
+# Parse commandline arguments
+#
+# == Parameters:
+# 	:config => File.join(File.dirname(__FILE__), "../config.example.yml"),
+# 	:log_level => Logger::ERROR
+#
+# == Returns:
+# Log output (default: ERROR)
+# 
 OptionParser.new do |opts|
   opts.banner = "Usage: gitlab-mirror-pull.rb [options]"
   opts.set_summary_indent('   ')
