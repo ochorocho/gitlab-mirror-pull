@@ -12,7 +12,7 @@
 dir="~/"
 binary=`which gitlab-mirror-pull`
 config="/etc/gitlab-mirror-pull/config.yml"
-cmd="$pid_file "
+cmd="$pid_file -r server -c $config -l ERROR"
 user=""
 
 name=`basename $0`
