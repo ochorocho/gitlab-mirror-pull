@@ -6,11 +6,15 @@ Description
 
 Update your git repositories automatically when `remote` is set
 
+* Adds a command to fetch repositories
+* Run a tiny Webserver to integrate with Gitlabs webhooks
+* Adds init script to `/etc/init.d/gitlab-mirror-server`
+
 # Install (for development)
 
-- Clone repository: `git clone https://github.com/ochorocho/gitlab-mirror-pull.git`
-- Run bundler: `bundle install`
-- Copy and modify `config.example.yml` to `config.yml`
+* Clone repository: `git clone https://github.com/ochorocho/gitlab-mirror-pull.git`
+* Run bundler: `bundle install`
+* Copy and modify `config.example.yml` to `config.yml`
 
 ## Run
 
