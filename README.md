@@ -71,5 +71,5 @@ Go to your porject -> Settings -> Integrations:
 # Run with docker
 
 ```bash
-docker run -ti --rm -v "/absolute/path/to/repositories/":/repositories  -v "/absolute/path/to/config.docker.yml":/config.docker.yml gitlab-mirror-pull
+docker run -ti --rm -v "/absolute/path/to/repositories/":/repositories  -v "/absolute/path/to/config.docker.yml":/config.docker.yml ochorocho/gitlab-mirror-pull
 ```
