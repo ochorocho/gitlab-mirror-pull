@@ -3,6 +3,7 @@ require 'git'
 require 'logger'
 require 'yaml'
 
+# Fetch Gitlab repositories
 class GitlabMirrorPull
 
   attr_accessor :config, :log_level
@@ -20,7 +21,6 @@ class GitlabMirrorPull
     @log = Logger.new(STDOUT)
     @log.level = log_level
     @config = YAML.load_file(config)
-    self.fetch_repositories
   end
 
   # Prepare list of repositories
@@ -45,16 +45,17 @@ class GitlabMirrorPull
 
   # Fetch repositories return by `repositories_to_fetch`
   #
+  # @param [Array<String>] repos with absolute path to repositories you want to fetch
   # @return Logging infos on fetched repos
   #
-  def fetch_repositories
+  def fetch_repositories(repos = nil)
     # Init git settings
     Git.configure do |config|
       config.binary_path = "#{@config['git']['path']}"
     end
 
     # Loop through repos and fetch it
-    repos_to_fetch = self.repositories_to_fetch
+    repos_to_fetch = repos.nil? ? self.repositories_to_fetch : repos
     repos_to_fetch.each do |repo|
       if File.directory?(repo)
         # Get branches

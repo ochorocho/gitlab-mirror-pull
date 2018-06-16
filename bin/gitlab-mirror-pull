@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/gitlab_mirror_pullpull.rb'
+require_relative '../lib/gitlab_mirror_pull.rb'
 
 options = {
   :config => File.join(File.dirname(__FILE__), "../config.example.yml"),
@@ -60,6 +60,7 @@ if options[:run] == 'server'
   require 'multi_json'
 
   config = YAML.load_file(options[:config])
+  pull = GitlabMirrorPull.new(options[:config], options[:log_level])
 
   # Configure server
   set :port, config['server']['port']
@@ -68,11 +69,13 @@ if options[:run] == 'server'
   post '/commit' do
     gitlab_json = MultiJson.load(request.body.read)
     # File.join(File.dirname(__FILE__), "../config.example.yml")
-    repo_path = File.join(config['git']['repos'], gitlab_json['project']['namespace'].downcase, gitlab_json['project']['name'].downcase)
-    puts repo_path
+    repo_path = File.join(config['git']['repos'], gitlab_json['project']['namespace'].downcase, gitlab_json['project']['name'].downcase + ".git")
+    pull.fetch_repositories([repo_path])
+    return ''
   end
 
 else
   # Run `git fetch` depending on options[:config]
-  GitlabMirrorPull.new(options[:config], options[:log_level])
+  pull = GitlabMirrorPull.new(options[:config], options[:log_level])
+  pull.fetch_repositories
 end
