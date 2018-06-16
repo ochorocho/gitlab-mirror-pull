@@ -65,6 +65,8 @@ if options[:run] == 'server'
   # Configure server
   set :port, config['server']['port']
   set :bind, config['server']['bind']
+  # Set to true to run sinatra webserver in production
+  set :run, true
 
   post '/commit' do
     gitlab_json = MultiJson.load(request.body.read)
