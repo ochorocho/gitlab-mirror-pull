@@ -67,3 +67,9 @@ Go to your porject -> Settings -> Integrations:
 
 * `/var/log/gitlab-mirror-server.err`
 * `/var/log/gitlab-mirror-server.log`
+
+# Run with docker
+
+```bash
+docker run -ti --rm -v "/absolute/path/to/repositories/":/repositories  -v "/absolute/path/to/config.docker.yml":/config.docker.yml gitlab-mirror-pull
+```
