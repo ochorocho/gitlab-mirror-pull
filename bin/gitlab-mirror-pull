@@ -3,7 +3,7 @@
 require_relative '../lib/gitlab_mirror_pull.rb'
 
 options = {
-  :config => File.join(File.dirname(__FILE__), "../config.example.yml"),
+  :config => "/etc/gitlab-mirror-pull/config.yml",
   :log_level => Logger::ERROR
 }
 
@@ -21,7 +21,7 @@ OptionParser.new do |opts|
   opts.set_summary_indent('   ')
   opts.set_summary_width(50)
   opts.define_head "Fetch gitlab repositories when remote set.
-Default config #{File.join(File.dirname(__FILE__), "../config.example.yml")}\n\n"
+Default config /etc/gitlab-mirror-pull/config.yml\n\n"
 
   # Config argument
   opts.on("-c", "--config [config.yml]", "Specify config yaml") do |yml|

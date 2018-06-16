@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Start gitlab-mirror-pull webserver
-# Description:       Start gitlab-mirror-pull webserver. Set url to http://localhost:8088 to trigger git fetch on triggered repo
+# Description:       Start gitlab-mirror-pull webserver. Set url to http://localhost:[:port] to trigger git fetch on triggered repo
 ### END INIT INFO
 
 dir="/"
@@ -33,7 +33,7 @@ case "$1" in
     if is_running; then
         echo "$name already started ..."
     else
-        echo "Starting $name"
+        echo "Starting $name ..."
         cd "$dir"
         if [ -z "$user" ]; then
             sudo $cmd >> "$stdout_log" 2>> "$stderr_log" &
@@ -49,7 +49,7 @@ case "$1" in
     ;;
     stop)
     if is_running; then
-        echo -n "Stopping $name..."
+        echo -n "Stopping $name ..."
         kill `get_pid`
         for i in {1..10}
         do
@@ -66,13 +66,13 @@ case "$1" in
             echo "Not stopped; may still be shutting down or shutdown may have failed"
             exit 1
         else
-            echo "$name stopped"
+            echo "$name stopped ..."
             if [ -f "$pid_file" ]; then
                 rm "$pid_file"
             fi
         fi
     else
-        echo "$name not running"
+        echo "$name not running ..."
     fi
     ;;
     restart)
@@ -85,9 +85,9 @@ case "$1" in
     ;;
     status)
     if is_running; then
-        echo "$name is running"
+        echo "$name is running ..."
     else
-        echo "$name stopped"
+        echo "$name stopped ..."
         exit 1
     fi
     ;;
