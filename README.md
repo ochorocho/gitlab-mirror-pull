@@ -15,7 +15,7 @@ Update your git repositories automatically when `remote` is set
 ## Run
 
 ```bash
-./bin/gitlab-mirror-pull -c config.example.yml -l INFO
+./bin/gitlab-mirror-pull -c config.yml -l INFO
 ```
 
 # Using 'gem install'
