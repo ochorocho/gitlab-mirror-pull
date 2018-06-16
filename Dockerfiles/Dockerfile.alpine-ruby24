@@ -1,0 +1,16 @@
+FROM alpine:3.6
+
+# Install ruby
+RUN apk update && apk upgrade && apk --update add \
+    build-base ruby-dev ruby ruby-irb ruby-rake ruby-io-console ruby-bigdecimal ruby-json ruby-bundler \
+    libstdc++ tzdata bash ca-certificates \
+    && echo 'gem: --no-document' > /etc/gemrc
+
+
+# Install
+RUN gem install gitlab-mirror-pull -v 0.3.1
+
+VOLUME /config.docker.yml
+VOLUME /repositories
+
+CMD /usr/local/bundle/bin/gitlab-mirror-pull -c /config.docker.yml -l INFO
