@@ -11,3 +11,7 @@ Dir.mkdir(directory_name) unless File.exists?(directory_name)
 # Copy config if it does not exist
 config_copy = "/etc/gitlab-mirror-pull/config.yml"
 FileUtils.cp("./config.example.yml",config_copy) unless File.exists?(config_copy)
+
+# Copy init script into place
+init_copy = "/etc/init.d/gitlab-mirror-server"
+FileUtils.cp("./init.d/gitlab-mirror-server",init_copy)
