@@ -14,5 +14,5 @@ FileUtils.cp("./config.example.yml",config_copy) unless File.exists?(config_copy
 
 # Copy init script into place
 init_copy = "/etc/init.d/gitlab-mirror-server"
-FileUtils.rm(init_copy) unless File.exists?(init_copy)
+FileUtils.rm(init_copy) unless !File.exists?(init_copy)
 FileUtils.cp("./init.d/gitlab-mirror-server.sh",init_copy)
