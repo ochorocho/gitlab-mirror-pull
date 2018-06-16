@@ -56,4 +56,10 @@ Go to your porject -> Settings -> Integrations:
 * Add URL `http://localhost:8088/commit`
 * Leave Token empty
 * Check `Enable SSL verification` 
-* Tick boxes to enable `Triggers` 
+* Tick boxes to enable `Triggers`
+* Run server `sudo /etc/init.d/gitlab-mirror-server start`
+
+**Logs**
+
+* `/var/log/gitlab-mirror-server.err`
+* `/var/log/gitlab-mirror-server.log`
