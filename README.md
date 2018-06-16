@@ -26,7 +26,7 @@ Setup a CronJob
 If you want to trigger periodically 
 
 ```bash
-0 */1 * * *	/usr/bin/ruby /path/to/gitlab-mirror-pull.rb
+* */1 * * *     git /usr/bin/ruby /usr/local/bin/gitlab-mirror-pull
 ```
 
 Using 'gem install'
@@ -43,3 +43,10 @@ Run
 ```bash
 gitlab-mirror-pull -c /path/to/config.yml
 ```
+
+Default config location
+
+```
+/etc/gitlab-mirror-pull/config.yml
+```
+
