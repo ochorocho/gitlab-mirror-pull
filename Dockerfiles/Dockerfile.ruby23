@@ -1,9 +1,0 @@
-FROM ruby:2.3
-
-# Install
-RUN gem install gitlab-mirror-pull -v 0.3.1
-
-VOLUME /config.docker.yml
-VOLUME /repositories
-
-CMD /usr/local/bundle/bin/gitlab-mirror-pull -c /config.docker.yml -l INFO
