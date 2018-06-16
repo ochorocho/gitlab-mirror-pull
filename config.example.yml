@@ -10,5 +10,3 @@ provider: # provider equals to "remote" set in your repository
 server:
   port: 8088
   bind: "localhost"
-redis:
-  socket: "/var/run/redis/redis.sock"
