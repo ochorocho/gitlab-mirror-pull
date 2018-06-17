@@ -15,7 +15,7 @@ class GitlabMirrorPull
   #
   # @return Returns `@log` and `@config`
   #
-  def initialize(config = File.join(File.dirname(__FILE__), "../config.example.yml"), log_level = Logger::ERROR)
+  def initialize(config = File.join(File.dirname(__FILE__), "../config.yml"), log_level = Logger::ERROR)
 
     # Configure Logger
     @log = Logger.new(STDOUT)
@@ -29,7 +29,7 @@ class GitlabMirrorPull
   #
   def repositories_to_fetch
     # Find all .git Repositories - Ignore *.wiki.git
-    repos = Dir.glob("#{config['git']['repos']}/*/*{[!.wiki]}.git")
+    repos = Dir.glob("#{@config['git']['repos']}/*/*{[!.wiki]}.git")
 
     # Build up array of NOT ignored repositories
     delete_path = []
@@ -60,16 +60,19 @@ class GitlabMirrorPull
       if File.directory?(repo)
         # Get branches
         g = Git.bare("#{repo}", :log => @log)
+        @return_repos = []
         g.remotes.each do |remote|
           # Determine which "remote" to fetch e.g. "git fetch github"
           if @config['provider'].include?("#{remote}")
             @log.info("Fetching remote #{remote} in #{repo}")
             g.remote(remote).fetch
+            @return_repos.push(repo)
           end
         end
       end
-    end
 
+    end
+    @return_repos
   end
 
 end
