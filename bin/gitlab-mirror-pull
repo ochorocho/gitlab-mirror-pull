@@ -80,5 +80,4 @@ else
   # Run `git fetch` depending on options[:config]
   pull = GitlabMirrorPull.new(options[:config], options[:log_level])
   pull.fetch_repositories
-  puts pull.to_yaml
 end

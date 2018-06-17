@@ -16,8 +16,6 @@ class GitlabMirrorPull
   # @return Returns `@log` and `@config`
   #
   def initialize(config = File.join(File.dirname(__FILE__), "../config.yml"), log_level = Logger::ERROR)
-
-    # Configure Logger
     @log = Logger.new(STDOUT)
     @log.level = log_level
     @config = YAML.load_file(config)
@@ -53,24 +51,23 @@ class GitlabMirrorPull
     Git.configure do |config|
       config.binary_path = "#{@config['git']['path']}"
     end
-
+    @return_repos = []
     # Loop through repos and fetch it
     repos_to_fetch = repos.nil? ? self.repositories_to_fetch : repos
     repos_to_fetch.each do |repo|
       if File.directory?(repo)
         # Get branches
         g = Git.bare("#{repo}", :log => @log)
-        @return_repos = []
         g.remotes.each do |remote|
           # Determine which "remote" to fetch e.g. "git fetch github"
           if @config['provider'].include?("#{remote}")
             @log.info("Fetching remote #{remote} in #{repo}")
             g.remote(remote).fetch
-            @return_repos.push(repo)
+            @return_repos << repo
+            # puts repo
           end
         end
       end
-
     end
     @return_repos
   end
