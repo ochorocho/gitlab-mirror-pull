@@ -1,0 +1,12 @@
+git:
+  path: "/usr/bin/git"
+  repos: "./fixtures/" # Default path of gitlab omnibus installation
+ignore:
+  - "group-name/project-name" # Ignore single repo
+  - "group-name" # Ignore entire group
+provider: # provider equals to "remote" set in your repository
+  - "github"
+  - "gitlab"
+server:
+  port: 8088
+  bind: "localhost"

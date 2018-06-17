@@ -8,7 +8,7 @@ require_relative '../lib/gitlab_mirror_pull.rb'
 class GitlabMirrorPullTest < Test::Unit::TestCase
 
   def setup
-    @config = File.join(File.dirname(__FILE__), "../config.yml")
+    @config = File.join(File.dirname(__FILE__), "config.tests.yml")
     @log_level = Logger::ERROR
     @pull = GitlabMirrorPull.new(@config, @log_level)
 
@@ -26,7 +26,7 @@ class GitlabMirrorPullTest < Test::Unit::TestCase
       File.open(path, "w+") do |f|
         f.write(content)
       end
-      from.add                                   # git add -- "."
+      from.add
       from.commit('Example mirror')
 
       # Init clone
