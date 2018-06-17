@@ -64,7 +64,6 @@ class GitlabMirrorPull
             @log.info("Fetching remote #{remote} in #{repo}")
             g.remote(remote).fetch
             @return_repos << repo
-            # puts repo
           end
         end
       end
