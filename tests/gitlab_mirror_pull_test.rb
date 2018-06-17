@@ -1,6 +1,5 @@
 require 'test/unit'
 require 'yaml'
-require 'minitest'
 require_relative '../lib/gitlab_mirror_pull.rb'
 
 class GitlabMirrorPullTest < Test::Unit::TestCase
