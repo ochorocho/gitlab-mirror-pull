@@ -1,5 +1,5 @@
 git:
-  path: "/usr/local/bin/git"
+  path: "/usr/bin/git"
   repos: "/Users/jochen/php-projekt-data/gitlab-mirror-pull/fixtures/to_repos" # Default path of gitlab omnibus installation
 ignore:
   - "user_group/repo_ignored" # Ignore single repo
