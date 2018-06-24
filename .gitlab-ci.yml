@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/ruby/tags/
-image: "ochorocho/gitlab-mirror-pull:latest"
+image: "ruby:2.4"
 
 # Cache gems in between builds
 cache:
@@ -13,7 +13,7 @@ cache:
 before_script:
   - ruby -v                               # Print out ruby version for debugging
   - gem install bundler  --no-ri --no-rdoc    # Bundler is not installed with the image
-#  - bundle install -j $(nproc) --path vendor  # Install dependencies into ./vendor/ruby
+  - bundle install -j $(nproc) --path vendor  # Install dependencies into ./vendor/ruby
 
 test:
   script:
