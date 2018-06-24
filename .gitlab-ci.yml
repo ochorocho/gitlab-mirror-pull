@@ -19,7 +19,7 @@ before_script:
 
 test:
   script:
-  - gem install git
+  - gem install git sinatra
   - ruby tests/gitlab_mirror_pull_test.rb
 
 deploy:
