@@ -3,6 +3,8 @@ require 'yaml'
 require 'git'
 require 'logger'
 require 'fileutils'
+require 'net/http'
+require 'uri'
 
 require_relative '../lib/gitlab_mirror_pull.rb'
 
@@ -87,6 +89,45 @@ class GitlabMirrorPullTest < Minitest::Test
       commit = repo.to_s.lines.grep(/Testing commit$/i)
       assert_equal(commit.empty?, false, "Expect a testing commit")
     end
+  end
+
+  def test_webhook
+
+    sinatra = spawn("./bin/gitlab-mirror-pull -r server -c ./tests/config.tests.yml")
+    Process.detach(sinatra)
+
+    sleep 5
+
+    # Create the HTTP objects
+    http = Net::HTTP.new("localhost", "8088")
+    header = {'Content-Type': 'text/json'}
+    request = Net::HTTP::Post.new("/commit", header)
+    request.body = '
+      {
+        "object_kind": "push",
+        "project_id": 15,
+        "project":{
+            "id": 15,
+            "name":"repo_1",
+            "description":"",
+            "web_url":"http://example.com/mike/diaspora",
+            "avatar_url":null,
+            "git_ssh_url":"git@example.com:mike/diaspora.git",
+            "git_http_url":"http://example.com/mike/diaspora.git",
+            "namespace":"user_group",
+            "visibility_level":0,
+            "path_with_namespace":"mike/diaspora",
+            "default_branch":"master",
+            "homepage":"http://example.com/mike/diaspora",
+            "url":"git@example.com:mike/diaspora.git",
+            "ssh_url":"git@example.com:mike/diaspora.git",
+            "http_url":"http://example.com/mike/diaspora.git"
+        }
+      }
+    '
+    response = http.request(request)
+    assert_equal(response.code, "200", "Expect status code 200")
+    Process.kill("SIGKILL", sinatra)
   end
 
   def teardown
