@@ -2,8 +2,8 @@ git:
   path: "/usr/local/bin/git"
   repos: "/Users/jochen/php-projekt-data/gitlab-mirror-pull/fixtures/to_repos" # Default path of gitlab omnibus installation
 ignore:
-  - "group-name/project-name" # Ignore single repo
-  - "group-name" # Ignore entire group
+  - "user_group/repo_ignored" # Ignore single repo
+  - "some-group" # Ignore entire group
 provider: # provider equals to "remote" set in your repository
   - "github"
   - "gitlab"
