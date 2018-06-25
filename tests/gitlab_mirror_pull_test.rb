@@ -1,7 +1,4 @@
 require 'minitest/autorun'
-require 'yaml'
-require 'git'
-require 'logger'
 require 'fileutils'
 require 'net/http'
 require 'uri'
@@ -96,7 +93,7 @@ class GitlabMirrorPullTest < Minitest::Test
     sinatra = spawn("./bin/gitlab-mirror-pull -r server -c ./tests/config.tests.yml")
     Process.detach(sinatra)
 
-    sleep 20
+    sleep 5
 
     # Create the HTTP objects
     http = Net::HTTP.new("localhost", "8088")
@@ -126,21 +123,13 @@ class GitlabMirrorPullTest < Minitest::Test
       }
     '
     response = http.request(request)
-    puts response.code
-    puts response.code
-    puts response.code
-    puts response.code
-    puts response.code
-    puts response.code
     assert_equal(response.code, "200", "Expect status code 200")
     Process.kill("SIGKILL", sinatra)
   end
 
   def teardown
-
     FileUtils.remove_dir(File.join(File.dirname(__FILE__), "../fixtures/from_repos"))
     FileUtils.remove_dir(File.join(File.dirname(__FILE__), "../fixtures/to_repos"))
-
   end
 
 end
