@@ -63,6 +63,7 @@ if options[:run] == 'server'
   pull = GitlabMirrorPull.new(options[:config], options[:log_level])
 
   # Configure server
+  set :server, 'webrick'
   set :port, config['server']['port']
   set :bind, config['server']['bind']
   # Set to true to run sinatra webserver in production
@@ -71,7 +72,15 @@ if options[:run] == 'server'
   post '/commit' do
     gitlab_json = MultiJson.load(request.body.read)
     repo_path = File.join(config['git']['repos'], gitlab_json['project']['namespace'].downcase, gitlab_json['project']['name'].downcase + ".git")
+
+    puts "#########################################"
+    puts "#########################################"
+    puts "#########################################"
     puts repo_path
+    puts "#########################################"
+    puts "#########################################"
+    puts "#########################################"
+
     pull.fetch_repositories([repo_path])
     if File.exists?(repo_path)
       halt 200
