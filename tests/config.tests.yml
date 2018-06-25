@@ -9,4 +9,4 @@ provider: # provider equals to "remote" set in your repository
   - "gitlab"
 server:
   port: 8088
-  bind: "localhost"
+  bind: "127.0.0.1"
