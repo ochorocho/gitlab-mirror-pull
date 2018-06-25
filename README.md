@@ -30,6 +30,8 @@ Update your git repositories automatically when `remote` is set
 gem install gitlab-mirror-pull
 ```
 
+:warning: Make sure you run the script/server as `git` user. This is default for omnibus installation but may differ. In case you run the binary directly use this command `sudo -u git -H gitlab-mirror-pull`
+
 ### Run
 
 ```bash
@@ -61,7 +63,7 @@ Go to your porject -> Settings -> Integrations:
 * Leave Token empty
 * Check `Enable SSL verification` 
 * Tick boxes to enable `Triggers`
-* Run server `sudo /etc/init.d/gitlab-mirror-server start`
+* Run server `sudo /etc/init.d/gitlab-mirror-server start` 
 
 **Logs**
 
