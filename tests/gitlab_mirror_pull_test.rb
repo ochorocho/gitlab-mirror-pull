@@ -126,13 +126,24 @@ class GitlabMirrorPullTest < Minitest::Test
       }
     '
     response = http.request(request)
+    put response.code
+    put response.code
+    put response.code
+    put response.code
+    put response.code
+    put response.code
+    put response.code
+    put response.code
+    put response.code
     assert_equal(response.code, "200", "Expect status code 200")
     Process.kill("SIGKILL", sinatra)
   end
 
   def teardown
+
     FileUtils.remove_dir(File.join(File.dirname(__FILE__), "../fixtures/from_repos"))
     FileUtils.remove_dir(File.join(File.dirname(__FILE__), "../fixtures/to_repos"))
+
   end
 
 end
