@@ -82,10 +82,11 @@ class GitlabMirrorPullTest < Minitest::Test
 
     # Check for "Testing commit"
     compared_repos.each do |path|
-      repo = `cd #{path} && git log --all --oneline`
+      repo = `cd #{path} && #{@config_testing['git']['path']} log --all --oneline`
       commit = repo.to_s.lines.grep(/Testing commit$/i)
       assert_equal(commit.empty?, false, "Expect a testing commit")
     end
+
   end
 
   def test_webhook

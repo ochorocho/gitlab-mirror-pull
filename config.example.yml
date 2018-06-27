@@ -10,3 +10,8 @@ provider: # provider equals to "remote" set in your repository
 server:
   port: 8088
   bind: "localhost"
+mail:
+  sender: "example@gmail.com"
+  receiver: "example@gmail.com"
+  send_on_error: false
+  send_report: false
