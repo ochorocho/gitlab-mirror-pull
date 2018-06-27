@@ -9,6 +9,7 @@ Update your git repositories automatically when `remote` is set
 * Adds a command to fetch repositories
 * Run a tiny Webserver to integrate with Gitlabs webhooks
 * Adds init script to `/etc/init.d/gitlab-mirror-server`
+* Send mail on error or just for reporting
 
 # Install (for development)
 
@@ -31,6 +32,28 @@ gem install gitlab-mirror-pull
 ```
 
 :warning: Make sure you run the script/server as `git` user. This is default for omnibus installation but may differ. In case you run the binary directly use this command `sudo -u git -H gitlab-mirror-pull`
+
+### Configuration (config.yml)
+
+```yaml
+git:
+  path: "/usr/bin/git"
+  repos: "/var/opt/gitlab/git-data/repositories" # Default path of gitlab omnibus installation
+ignore:
+  - "group-name/project-name" # Ignore single repo
+  - "group-name" # Ignore entire group
+provider: # provider equals to "remote" set in your repository
+  - "github"
+  - "gitlab"
+server:
+  port: 8088
+  bind: "localhost"
+mail:
+  sender: "example@gmail.com"
+  receiver: "example@gmail.com"
+  send_on_error: false
+  send_report: false
+```
 
 ### Run
 
