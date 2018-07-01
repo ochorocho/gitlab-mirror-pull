@@ -11,7 +11,8 @@ api:
   url: "https://gitlab.example.org/"
   token: "XXXXXXXXXXX"
 pipeline_trigger:
-  - "user_group/repo_2" # Run pipeline for single project
+  - "user_group/repo_1" # Run pipeline for single project
+  - "user_group" # Run pipeline for all project in this group
 server:
   port: 8088
   bind: "127.0.0.1"
