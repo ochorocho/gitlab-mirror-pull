@@ -90,6 +90,13 @@ class GitlabMirrorPullTest < Minitest::Test
 
   end
 
+  def test_pipeline_to_trigger
+    branch = @pull.pipeline_to_trigger("user_group/repo_1")
+    assert_equal(branch, "master", "Expect to trigger pipeline on master")
+    branch = @pull.pipeline_to_trigger("user_group/repo_ignored")
+    assert_equal(branch, false, "Expect false when repo pipeline trigger is not configured")
+  end
+
   def test_webhook
 
     sinatra = spawn("./bin/gitlab-mirror-pull -r server -c #{File.join(File.dirname(__FILE__), @yaml_config)}")

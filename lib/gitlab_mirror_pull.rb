@@ -25,8 +25,8 @@ class GitlabMirrorPull
     gitlab_url = @config['api']['url']
     gitlab_token = @config['api']['token']
     Gitlab.configure do |config|
-      config.endpoint       = "#{gitlab_url}/api/v4" # API endpoint URL, default: ENV['GITLAB_API_ENDPOINT']
-      config.private_token  = gitlab_token       # user's private token or OAuth2 access token, default: ENV['GITLAB_API_PRIVATE_TOKEN']
+      config.endpoint = "#{gitlab_url}/api/v4" # API endpoint URL, default: ENV['GITLAB_API_ENDPOINT']
+      config.private_token = gitlab_token # user's private token or OAuth2 access token, default: ENV['GITLAB_API_PRIVATE_TOKEN']
     end
 
   end
@@ -41,16 +41,16 @@ class GitlabMirrorPull
     sender = "#{@config['mail']['sender']}"
     receiver = "#{@config['mail']['receiver']}"
     mail = Mail.new do
-      from    "#{sender}"
-      to      "#{receiver}"
+      from "#{sender}"
+      to "#{receiver}"
       subject 'Gitlab Mirror Pull'
       text_part do
-        body    "#{email_body_text}"
+        body "#{email_body_text}"
       end
 
       html_part do
         content_type 'text/html; charset=UTF-8'
-        body    "#{email_body_html}"
+        body "#{email_body_html}"
       end
     end
     mail.delivery_method :sendmail
@@ -82,13 +82,12 @@ class GitlabMirrorPull
   # @param <String> fetch contains returned value of 'git fetch'
   # @param <String> namespace of the project e.g. group-name/your-project
   def trigger_pipeline(fetch, namespace)
+    to_trigger = self.pipeline_to_trigger(namespace)
 
-    if !fetch.to_s.empty? && self.pipeline_to_trigger(namespace) == true
-
+    if !fetch.to_s.empty? && to_trigger != false
       repo_encoded = url_encode(namespace)
       gitlab_api_project = Gitlab.client(endpoint: "#{@config['api']['url']}/api/v4", private_token: @config['api']['token'])
-      gitlab_api_project.create_pipeline("#{repo_encoded}", 'master')
-
+      gitlab_api_project.create_pipeline("#{repo_encoded}", "#{to_trigger}")
     end
   end
 
@@ -98,8 +97,8 @@ class GitlabMirrorPull
   # @return <Boolean> true/false
   def pipeline_to_trigger(repo_namespace)
     @config['pipeline']['trigger'].each do |trigger|
-      if repo_namespace.include?("#{trigger['repo']}")
-        return true
+      if repo_namespace.include?("#{trigger["repo"]}")
+        return trigger['branch']
       end
     end
     return false
