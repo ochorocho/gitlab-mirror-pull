@@ -1,5 +1,6 @@
-Fetch/update gitlab repositories automatically
+gitlab-mirror-pull
 ==============================================
+Gitlab-mirror-pull automatically fetches and updates GitLab repositories. 
 
 Description
 -----------
