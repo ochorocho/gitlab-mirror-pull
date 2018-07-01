@@ -8,7 +8,7 @@ RUN apk update && apk upgrade && apk --update add \
 
 
 # Install
-RUN gem install gitlab-mirror-pull -v 1.0.1
+RUN gem install gitlab-mirror-pull -v 1.1.1
 
 VOLUME /config.docker.yml
 VOLUME /repositories
