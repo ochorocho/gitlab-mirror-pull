@@ -91,7 +91,7 @@ class GitlabMirrorPullTest < Minitest::Test
 
   def test_webhook
 
-    sinatra = spawn("./bin/gitlab-mirror-pull -r server -c ./tests/config.tests.yml")
+    sinatra = spawn("./bin/gitlab-mirror-pull -r server -c #{File.join(File.dirname(__FILE__), @yaml_config)}")
     Process.detach(sinatra)
 
     sleep 5

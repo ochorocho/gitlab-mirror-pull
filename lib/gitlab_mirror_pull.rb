@@ -20,6 +20,15 @@ class GitlabMirrorPull
     @log = Logger.new(STDOUT)
     @log.level = log_level
     @config = YAML.load_file(config)
+
+    # Prepare gitlab api
+    gitlab_url = @config['api']['url']
+    gitlab_token = @config['api']['token']
+    Gitlab.configure do |config|
+      config.endpoint       = "#{gitlab_url}/api/v4" # API endpoint URL, default: ENV['GITLAB_API_ENDPOINT']
+      config.private_token  = gitlab_token       # user's private token or OAuth2 access token, default: ENV['GITLAB_API_PRIVATE_TOKEN']
+    end
+
   end
 
   def clean_html(email_body = '')
@@ -66,6 +75,34 @@ class GitlabMirrorPull
 
     return repos - delete_path
 
+  end
+
+  # Trigger Pipeline if changes fetched and repo set in @confif['pipeline_trigger']
+  #
+  # @param <String> fetch contains returned value of 'git fetch'
+  # @param <String> namespace of the project e.g. group-name/your-project
+  def trigger_pipeline(fetch, namespace)
+
+    if !fetch.to_s.empty? && self.pipeline_to_trigger(namespace) == true
+
+      repo_encoded = url_encode(namespace)
+      gitlab_api_project = Gitlab.client(endpoint: "#{@config['api']['url']}/api/v4", private_token: @config['api']['token'])
+      gitlab_api_project.create_pipeline("#{repo_encoded}", 'master')
+
+    end
+  end
+
+  # Check config if pipeline should trigger
+  #
+  # @param <String> repo_namespace of the project e.g. group-name/your-project
+  # @return <Boolean> true/false
+  def pipeline_to_trigger(repo_namespace)
+    @config['pipeline_trigger'].each do |trigger|
+      if repo_namespace.include?("#{trigger}")
+        return true
+      end
+    end
+    return false
   end
 
   # Fetch repositories return by `repositories_to_fetch`

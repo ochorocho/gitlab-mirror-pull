@@ -7,6 +7,11 @@ ignore:
 provider: # provider equals to "remote" set in your repository
   - "github"
   - "gitlab"
+api:
+  url: "https://gitlab.example.org/"
+  token: "XXXXXXXXXXX"
+pipeline_trigger:
+  - "user_group/repo_2" # Run pipeline for single project
 server:
   port: 8088
   bind: "localhost"
