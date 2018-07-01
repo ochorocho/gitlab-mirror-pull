@@ -10,8 +10,15 @@ provider: # provider equals to "remote" set in your repository
 api:
   url: "https://gitlab.example.org/"
   token: "XXXXXXXXXXX"
-pipeline_trigger:
-  - "user_group/repo_2" # Run pipeline for single project
+pipeline:
+  enabled: false
+  trigger:
+    repo1:
+      repo: "user_group/repo_1" # Run pipeline for single project
+      branch: "master" # Branch to trigger pipeline
+    repo2:
+      repo: "user_group/repo_1" # Run pipeline for single project
+      branch: "user_group" # Branch to trigger pipeline
 server:
   port: 8088
   bind: "localhost"

@@ -77,7 +77,7 @@ class GitlabMirrorPull
 
   end
 
-  # Trigger Pipeline if changes fetched and repo set in @confif['pipeline_trigger']
+  # Trigger Pipeline if changes fetched and repo set in @confif['pipeline']['trigger']
   #
   # @param <String> fetch contains returned value of 'git fetch'
   # @param <String> namespace of the project e.g. group-name/your-project
@@ -97,8 +97,8 @@ class GitlabMirrorPull
   # @param <String> repo_namespace of the project e.g. group-name/your-project
   # @return <Boolean> true/false
   def pipeline_to_trigger(repo_namespace)
-    @config['pipeline_trigger'].each do |trigger|
-      if repo_namespace.include?("#{trigger}")
+    @config['pipeline']['trigger'].each do |trigger|
+      if repo_namespace.include?("#{trigger['repo']}")
         return true
       end
     end
