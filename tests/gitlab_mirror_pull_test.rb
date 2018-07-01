@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'fileutils'
 require 'net/http'
 require 'uri'
+require 'gitlab'
 
 require_relative '../lib/gitlab_mirror_pull.rb'
 
