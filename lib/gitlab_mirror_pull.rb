@@ -21,14 +21,6 @@ class GitlabMirrorPull
     @log.level = log_level
     @config = YAML.load_file(config)
 
-    # Prepare gitlab api
-    gitlab_url = @config['api']['url']
-    gitlab_token = @config['api']['token']
-    Gitlab.configure do |config|
-      config.endpoint = "#{gitlab_url}/api/v4" # API endpoint URL, default: ENV['GITLAB_API_ENDPOINT']
-      config.private_token = gitlab_token # user's private token or OAuth2 access token, default: ENV['GITLAB_API_PRIVATE_TOKEN']
-    end
-
   end
 
   def clean_html(email_body = '')
