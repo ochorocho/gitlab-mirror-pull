@@ -16,13 +16,13 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.3)
-    rack-protection (2.0.8.1)
+    rack-protection (2.2.0)
       rack
-    ruby2_keywords (0.0.2)
-    sinatra (2.0.8.1)
+    ruby2_keywords (0.0.5)
+    sinatra (2.2.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
       tilt (~> 2.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -38,7 +38,7 @@ DEPENDENCIES
   mail (~> 2.7)
   minitest (~> 5.11, >= 5.11.3)
   multi_json (~> 1.13, >= 1.13.1)
-  sinatra (~> 2.0, >= 2.0.4)
+  sinatra (~> 2.2, >= 2.2.0)
 
 BUNDLED WITH
    1.17.3
