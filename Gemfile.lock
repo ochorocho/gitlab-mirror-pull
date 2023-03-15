@@ -13,20 +13,20 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_xml (0.6.0)
-    mustermann (1.1.1)
+    mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
-    rack (2.2.3)
-    rack-protection (2.0.8.1)
+    rack (2.2.6.4)
+    rack-protection (2.2.4)
       rack
-    ruby2_keywords (0.0.2)
-    sinatra (2.0.8.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+    ruby2_keywords (0.0.5)
+    sinatra (2.2.4)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.4)
       tilt (~> 2.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    tilt (2.0.10)
+    tilt (2.1.0)
     unicode-display_width (1.4.0)
 
 PLATFORMS
@@ -38,7 +38,7 @@ DEPENDENCIES
   mail (~> 2.7)
   minitest (~> 5.11, >= 5.11.3)
   multi_json (~> 1.13, >= 1.13.1)
-  sinatra (~> 2.0, >= 2.0.4)
+  sinatra (~> 2.0, >= 2.0.8.1)
 
 BUNDLED WITH
    1.17.3
